@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="title_home">Home</string>
+    <string name="title_apks">Apks</string>
+    <string name="title_setting">Setting</string>
+    <string name="app_name">SingleHook</string>
+    <string name="join_telegram_channel"><![CDATA[加入我们的 %1$s 频道]]></string>
+    <string name="about_view_source_code"><![CDATA[在 %1$s 查看源码]]></string>
+</resources>
