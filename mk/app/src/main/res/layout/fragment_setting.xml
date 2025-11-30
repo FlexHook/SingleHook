@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+     xmlns:android="http://schemas.android.com/apk/res/android"
+     xmlns:app="http://schemas.android.com/apk/res-auto"
+     android:layout_height="match_parent"
+     android:layout_width="match_parent"
+     android:orientation="vertical">
+
+    <TextView
+         android:layout_height="wrap_content"
+         android:layout_width="wrap_content"
+         android:layout_marginBottom="30dp"
+         android:background="?android:attr/selectableItemBackgroundBorderless"
+         android:paddingRight="35dp"
+         android:clickable="true"
+         android:textAppearance="?android:attr/textAppearanceLarge"
+         android:paddingLeft="35dp"
+         android:textColor="#FF000000"
+         android:layout_marginTop="15dp"
+         android:text="@string/title_setting"
+         android:id="@+id/name" />
+
+    <androidx.core.widget.NestedScrollView
+         android:layout_height="match_parent"
+         android:layout_width="match_parent"
+         app:layout_behavior="@string/appbar_scrolling_view_behavior"
+         android:scrollbars="none">
+
+        <LinearLayout
+             android:layout_height="match_parent"
+             android:layout_width="match_parent"
+             android:orientation="vertical">
+
+            <LinearLayout
+                 android:layout_height="wrap_content"
+                 android:layout_width="match_parent"
+                 android:background="?android:attr/selectableItemBackground"
+                 android:gravity="center|left"
+                 android:paddingRight="35dp"
+                 android:clickable="true"
+                 android:minHeight="55dp"
+                 android:orientation="horizontal"
+                 android:paddingLeft="35dp">
+
+                <ImageView
+                     android:layout_height="40dp"
+                     android:layout_width="40dp"
+                     android:layout_marginBottom="5dp"
+                     android:src="@drawable/no_apk"
+                     android:background="?android:attr/selectableItemBackgroundBorderless"
+                     android:clickable="true"
+                     android:layout_marginTop="5dp"
+                     android:id="@+id/icon" />
+
+                <LinearLayout
+                     android:layout_height="wrap_content"
+                     android:layout_width="wrap_content"
+                     android:orientation="vertical"
+                     android:layout_marginStart="15dp"
+                     android:layout_weight="8.0">
+
+                    <TextView
+                         android:layout_height="wrap_content"
+                         android:layout_width="wrap_content"
+                         android:ellipsize="end"
+                         android:textSize="15sp"
+                         android:lines="1"
+                         android:textColor="#FF000000"
+                         android:text="夜南" />
+
+                    <TextView
+                         android:layout_height="wrap_content"
+                         android:layout_width="wrap_content"
+                         android:layout_marginEnd="10dp"
+                         android:textSize="12sp"
+                         android:id="@+id/describe"
+                         android:text="努力让自己变得更好！" />
+
+                </LinearLayout>
+
+                <View
+                     android:layout_height="15dp"
+                     android:layout_width="15dp"
+                     android:background="@drawable/ic_chevron_right" />
+
+            </LinearLayout>
+
+            <include
+                 layout="@layout/item_title"
+                 android:id="@+id/category_1" />
+
+            <include
+                 layout="@layout/item_switch"
+                 android:id="@+id/hideIcon" />
+
+            <include
+                 layout="@layout/item_switch"
+                 android:id="@+id/dumpDex" />
+
+            <include
+                 layout="@layout/item_switch"
+                 android:id="@+id/detectUpdates" />
+
+            <include
+                 layout="@layout/item_switch"
+                 android:id="@+id/needInterceptAds" />
+
+            <include
+                 layout="@layout/item_title"
+                 android:id="@+id/category_2" />
+
+            <include
+                 layout="@layout/item_list"
+                 android:id="@+id/officialWebsite" />
+
+            <include
+                 layout="@layout/item_list"
+                 android:id="@+id/mt_auto_checkin" />
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</LinearLayout>
