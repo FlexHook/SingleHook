@@ -1,0 +1,24 @@
+name: add PAT
+
+on:
+  workflow_dispatch:
+
+jobs:
+  check-repos:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check for new repositories
+        env:
+          GH_TOKEN: ${{ secrets.PAT }}
+        run: |
+          CURRENT_REPOS=$(gh repo list --limit 1000 --json nameWithOwner --jq '.[].nameWithOwner' | sort)
+          if [ -n "$CURRENT_REPOS" ]; then
+            for REPO in $NEW_REPOS; do
+              echo "Processing $REPO"
+              # gh secret set PAT \
+                # --repo "$REPO" \
+                # --body "${{ secrets.PAT }}"
+            done
+          else
+            echo "No repositories found"
+          fi
