@@ -7,27 +7,26 @@ jobs:
   check-repos:
     runs-on: ubuntu-latest
     steps:
+      - name: 🔧 安装GitHub CLI，并使用PAT登录
+        run: |
+          curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
+          sudo chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg
+          echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
+          sudo apt update
+          sudo apt install gh -y
+          gh --version
+          echo "${{ secrets.PAT }}" | gh auth login --with-token
+          gh auth status
       - name: Check for new repositories
         env:
           GH_TOKEN: ${{ secrets.PAT }}
         run: |
-          echo "开始处理仓库列表..."
-          
-          # 获取当前仓库信息
           CURRENT_REPO="${{ github.repository }}"  # 例如：username/repo-name
-          echo "当前仓库: $CURRENT_REPO"
-          echo "排除当前仓库..."
-          
-          # 使用 while 循环逐行读取，排除当前仓库
           gh repo list --limit 1000 --json nameWithOwner --jq '.[].nameWithOwner' | while read -r REPO; do
             if [ "$REPO" != "$CURRENT_REPO" ]; then
               echo "Processing: $REPO"
-              # gh secret set PAT \
-              #   --repo "$REPO" \
-              #   --body "${{ secrets.PAT }}"
-            else
-              echo "跳过当前仓库: $REPO"
+              gh secret set PAT \
+                --repo "$REPO" \
+                --body "$GH_TOKEN"
             fi
           done
-          
-          echo "处理完成"
