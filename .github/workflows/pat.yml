@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  check-repos:
+  repos:
     runs-on: ubuntu-latest
     steps:
       - name: 🔧 安装CLI，并登录
@@ -20,20 +20,12 @@ jobs:
       
       - name: 设置PAT到其他仓库
         env:
-          PAT: ${{ secrets.PAT }}
+          GH_TOKEN: ${{ secrets.PAT }}
         run: |
-          curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
-          sudo chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg
-          echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
-          sudo apt update
-          sudo apt install gh -y
-          gh --version
-          echo "PAT" | gh auth login --with-token
-          gh auth status
           CURRENT_REPO="${{ github.repository }}"
           gh repo list --limit 1000 --json nameWithOwner --jq '.[].nameWithOwner' | while read -r REPO; do
             if [ "$REPO" != "$CURRENT_REPO" ]; then
-              OUTPUT=$(gh secret set PAT --repo "$REPO" --body "$PAT" 2>&1)
+              OUTPUT=$(gh secret set PAT --repo "$REPO" --body "$GH_TOKEN" 2>&1)
               EXIT_CODE=$?
               if [ $EXIT_CODE -eq 0 ]; then
                 echo "✅ 成功: 已将PAT设置到 $REPO"
